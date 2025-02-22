@@ -15,8 +15,9 @@ const SectionWrapper = ({ children }) => {
                         boxShadow: "0px 3px 10px rgba(0, 0, 0, 0.15)", // Soft bottom shadow
                         borderTopLeftRadius: "10px",
                         borderTopRightRadius: "10px",
-                        py: 2,
-                        color: "text.primary"
+                        color: "text.primary",
+                        px: 1,
+                        py: 1
                     }}
                     position="relative"
                     elevation={0}

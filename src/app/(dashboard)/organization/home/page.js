@@ -7,7 +7,7 @@ import SelectBox from '@/shared/form-control/select-box';
 import { Box, CardMedia, Grid2, Slider, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import { useState } from 'react';
-import ProductGrid, { UiCardContent } from '../ProductGrid';
+import ProductGrid, { UiCardContent } from './products/ProductGrid';
 
 const HomePage = () => {
   const options =
@@ -91,8 +91,8 @@ const HomePage = () => {
 
 
       {/* Tenders */}
-      <Grid2 container spacing={4}>
-        <Grid2 item size={6}>
+      <Grid2 container spacing={4}  >
+        <Grid2 item size={6} >
           <SectionWrapper>
             <Stack data-role="header">
               <Typography variant='h5' fontWeight={"bold"}>My Tenders</Typography>

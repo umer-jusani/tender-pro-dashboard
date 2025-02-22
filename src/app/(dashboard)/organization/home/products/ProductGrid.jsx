@@ -3,7 +3,7 @@ import { ProductOne } from "@/assests";
 import UIButton from "@/shared/pure-components/button/button";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { Box, Button, Card, CardContent, CardMedia, Divider, Grid, Stack, Typography } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Divider, Grid, Stack, Typography } from "@mui/material";
 
 const products = [
     { id: 1, name: "Gold Ring With Clear Stones", quantity: 78, targetPrice: 500, image: ProductOne },

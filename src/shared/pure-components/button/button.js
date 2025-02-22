@@ -16,8 +16,9 @@ const UIButton = ({
     startIcon = null,
     endIcon = null,
     rounded = false,
-    capitalize = true, 
+    capitalize = true,
     sx = {},
+    color = 'primary',
     callback = () => { },
     btnColor,
     ...otherProps
@@ -28,6 +29,7 @@ const UIButton = ({
         <Button
             fullWidth={fullWidth}
             rounded={rounded}
+            color={color}
             size={size}
             sx={{ ...sx, textTransform: capitalize && "capitalize", bgcolor: btnColor }}
             variant={variant}
