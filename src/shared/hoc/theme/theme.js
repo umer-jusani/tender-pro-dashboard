@@ -22,11 +22,11 @@ let theme = createTheme({
         },
         MuiCssBaseline: {
             styleOverrides: {
-              body: {
-                backgroundColor: "rgba(245, 245, 245, 1)", // Change this to your desired color
-              },
+                body: {
+                    backgroundColor: "rgba(245, 245, 245, 1)", // Change this to your desired color
+                },
             },
-          },
+        },
     },
     breakpoints: {
         values: {
@@ -80,6 +80,7 @@ let theme = createTheme({
         background: {
             default: "rgba(255, 255, 255, 1)",
             paper: "rgba(245, 245, 245, 1)",
+            
         },
         divider: "rgba(232, 232, 232, 1)",
     },
