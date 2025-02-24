@@ -22,6 +22,7 @@ const Header = () => {
             <InputField
               fullWidth={false}
               placeholder="Search Here..."
+              // bgColor="background.paper"
               size="small"
               endIcon={<SearchIcon sx={{ color: "text.primary" }} />}
             />

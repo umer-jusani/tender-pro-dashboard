@@ -1,27 +1,26 @@
 "use client";
 
-import {
-    FormControl,
-    FormHelperText,
-    InputAdornment,
-    TextField,
-    Typography,
-    useMediaQuery
-} from "@mui/material";
 import React from "react";
+import {
+    FormHelperText,
+    TextField,
+    useMediaQuery,
+    Typography,
+    FormControl,
+    InputAdornment,
+} from "@mui/material";
+import { Controller } from "react-hook-form";
 
 const InputField = React.forwardRef(
     (
         {
-            endIcon = null,
-            startIcon = null,
             labelTop = "",
             label = "",
-            placeholder = "",
             styles,
             error = "",
             helperText = "",
             icon,
+            startIcon = null,
             fullWidth = true,
             value: propsValue,
             onChange: propsOnChange,
@@ -30,177 +29,71 @@ const InputField = React.forwardRef(
             min = "",
             max = "",
             onBlur,
-            onlyAlphabet = false,
-            onlyNumeric = false,
+            control = null, // react-hook-form control
+            name = "fallback",
+            errors = {},
+            InputProps = {},
             ...props
         },
         ref
     ) => {
         const matches = useMediaQuery("(min-width:600px)");
-        const [stateValue, setStateValue] = React.useState("");
-        const [localError, setLocalError] = React.useState(""); // for local error handling
-        const value = propsValue !== undefined ? propsValue : stateValue;
-        const _id = ``;
-        const adjustSize = size ? size : matches ? "large" : "small";
+        const _id = `myInput__`;
 
-        const removeError = (duration) => {
-            setTimeout(() => setLocalError(""), duration); // Clear the error after duration
-        };
+        const errorMessageToShow = error || errors[name]?.message;
+        const isError = Boolean(errorMessageToShow);
 
-        const onChange = (event) => {
-            const newValue = event.target.value;
-            let valid = true;
-
-            // Check for only alphabet
-            if (onlyAlphabet) {
-                if (!/^[a-zA-Z]*$/.test(newValue)) {
-                    valid = false;
-                    setLocalError("Only alphabetic characters are allowed.");
-                    removeError(3000);
-                } else {
-                    setLocalError("");
-                }
-            }
-
-            // Check for only numeric (and positive)
-            if (onlyNumeric) {
-                if (!/^\d*$/.test(newValue)) {
-                    valid = false;
-                    setLocalError("Only numeric characters are allowed.");
-                    removeError(3000);
-                } else if (parseFloat(newValue) < 0) {
-                    valid = false;
-                    setLocalError("Only positive values are allowed.");
-                    removeError(3000);
-                } else {
-                    setLocalError("");
-                }
-            }
-
-            if (valid) {
-                if (propsOnChange) {
-                    propsOnChange(event);
-                } else {
-                    setStateValue(newValue);
-                }
-            }
-        };
-
-        const printError = () => {
-            if (localError || error) {
-                return (
-                    <FormHelperText sx={{ mt: "0 !important" }}>
-                        {`${localError || error}*`}
-                    </FormHelperText>
-                );
-            }
-        };
-
-        const printHelperText = () => {
-            if (helperText !== "") {
-                return (
-                    <FormHelperText
-                        sx={{
-                            mt: "0 !important",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 1,
-                            color: "#6C6A6A",
-                            fontWeight: 500,
-                        }}
-                    >
-                        {helperText}
-                        {icon}
-                    </FormHelperText>
-                );
-            }
-        };
-
-        const commonTextProps = {
-            // size: 'medium',
-            // variant,
-            // fullWidth: true,
-            // error: isError,
-            // helperText: errorMessageToShow,
+        const commonTextFieldProps = {
+            id: _id,
+            inputRef: ref,
+            error: isError,
+            label,
+            variant,
+            fullWidth,
+            size: "large",
+            autoComplete: "off",
+            value: propsValue,
+            onBlur,
+            onChange: propsOnChange,
+            inputProps: { min, max },
             InputProps: {
-                ...(startIcon
-                    ? {
-                        startAdornment: (
-                            <InputAdornment position="start">{startIcon}</InputAdornment>
-                        ),
-                    }
-                    : {}),
-                ...(endIcon
-                    ? {
-                        endAdornment: (
-                            <InputAdornment position="end">{endIcon}</InputAdornment>
-                        ),
-                    }
-                    : {}),
-                // ...InputProps,
+                ...(startIcon ? { startAdornment: <InputAdornment position="start">{startIcon}</InputAdornment> } : {}),
+                ...(icon ? { endAdornment: <InputAdornment position="end">{icon}</InputAdornment> } : {}),
+                ...InputProps,
             },
-            // inputProps: { min: 4, max: 10 },
+            ...props,
         };
 
         return (
-            <FormControl
-                sx={{ ...styles, width: 1 }}
-                error={Boolean(localError || error)}
-            >
+            <FormControl sx={{ ...styles, width: 1 }} error={isError}>
                 {labelTop && (
-                    <Typography
-                        // htmlFor={_id}
-                        sx={{
-                            marginBottom: "5px",
-                            color: "#000",
-                            fontWeight: "Medium",
-                        }}
-                    >
+                    <Typography sx={{ marginBottom: "5px", color: "#000", fontWeight: "Medium" }} >
                         {labelTop}
                     </Typography>
                 )}
-                <TextField
-                    placeholder={placeholder}
-                    id={_id}
-                    inputRef={ref}
-                    error={Boolean(localError || error)}
-                    label={label}
-                    variant={variant}
-                    fullWidth={fullWidth}
-                    size={adjustSize}
-                    autoComplete="off"
-                    value={value}
-                    onBlur={onBlur}
-                    onChange={onChange}
-                    inputProps={{
-                        min: min,
-                        max: max,
-                    }}
-                    {...commonTextProps}
-                    {...props}
-                    sx={{
-                        "& input[type=number]": {
-                            MozAppearance: "textfield", // ✅ Correct
-                            WebkitAppearance: "none", // ✅ Correct
-                            appearance: "textfield",
-                            margin: 0,
-                        },
-                        "& input[type=number]::-webkit-outer-spin-button, & input[type=number]::-webkit-inner-spin-button":
-                        {
-                            WebkitAppearance: "none", // ✅ Correct
-                        },
-                        backgroundColor: "background.paper",
-                        borderRadius: 1
-                    }}
-                />
-                {printHelperText()}
-                {printError()}
+
+                {control ? (
+                    <Controller
+                        name={name}
+                        control={control}
+                        render={({ field }) => <TextField {...commonTextFieldProps} {...field} InputLabelProps={{ sx: { color: "GrayText" } }} />}
+                    />
+                ) : (
+                    <TextField {...commonTextFieldProps} color="primary" InputLabelProps={{ sx: { color: "GrayText" } }} />
+                )}
+
+                {helperText && (
+                    <FormHelperText sx={{ mt: "0 !important", color: "#6C6A6A", fontWeight: 500 }}>
+                        {helperText}asd
+                    </FormHelperText>
+                )}
+
+                {isError && <FormHelperText sx={{ mt: "0 !important" }}>{errorMessageToShow}*</FormHelperText>}
             </FormControl>
         );
     }
 );
 
-// Add displayName for the component
 InputField.displayName = "InputField";
 
 export default InputField;

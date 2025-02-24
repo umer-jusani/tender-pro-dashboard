@@ -1,54 +1,99 @@
 "use client";
+import { useState, useEffect } from "react";
+import { InputLabel, FormControl, Select, MenuItem, FormHelperText, Box } from "@mui/material";
 
-import { InputLabel, MenuItem, Select, FormControl } from "@mui/material";
-import React, { useState } from "react";
-import { Controller } from "react-hook-form";
+export default function SelectBox({
+    initValue = "",
+    labelTop,
+    label,
+    items = [],
+    name = "",
+    error = "",
+    addNew = false,
+    styles = {},
+    minWidth = "150px",
+    required,
+    addHandle = () => { },
+    search = () => { },
+    handleChange = () => { },
+    disabled = false,
+    ...props
+}) {
+    const [selected, setSelected] = useState("");
+    const rand = `select__${Math.ceil(Math.random())}`;
 
-const SelectBox = ({ control, name = "age", label, size = "medium", labelId = "select-label", id = "select-id", minWidth = "150px", options = [] }) => {
-    const [value, setValue] = useState("");
+    useEffect(() => {
+        setSelected(initValue);
+    }, [initValue]);
 
-    const handleChange = (event) => {
-        setValue(event.target.value);
+    const handleSelect = (e) => {
+        setSelected(e.target.value);
+        handleChange(e);
     };
 
+    const printError = () => {
+        if (error !== "") {
+            return (
+                <FormHelperText sx={{ color: "#d32f2f", mt: "0 !important" }}>
+                    {error}
+                </FormHelperText>)
+        }
+    }
+
     return (
-        <FormControl sx={{ maxWidth: "400px", minWidth: "200px" }}>
-            <InputLabel id={labelId} sx={{ color: "text.primary" }}> {label}</InputLabel>
-
-            {control ? (
-                <Controller
-                    name={name}
-                    control={control}
-                    render={({ field }) => (
-                        <Select {...field} label={label} labelId={labelId} id={id}>
-                            {options.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    )}
-                />
-            ) : (
-                <Select
-                    labelId={labelId}
-                    id={id}
-                    fullWidth
-                    size={size}
-                    label={label}
-                    sx={{ width: "100%" }}
-                    value={value}
-                    onChange={handleChange}
+        <Box sx={styles}>
+            {labelTop && (
+                <InputLabel
+                    id={rand}
+                    error={Boolean(error !== "")}
+                    sx={{ marginBottom: "5px", color: "" }}
                 >
-                    {options.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))}
-                </Select>
+                    {labelTop}
+                </InputLabel>
             )}
-        </FormControl>
+            <FormControl sx={{ minWidth: minWidth }} error={Boolean(error !== "")} {...props}>
+                {label && (
+                    <InputLabel
+                        id={rand}
+                        sx={{ backgroundColor: "#fff", color: "GrayText", px: 1 }}
+                    >
+                        {label}
+                    </InputLabel>
+                )}
+                <Select
+                    id={rand}
+                    onChange={handleSelect}
+                    value={selected}
+                    name={name}
+                    required={required}
+                    error={Boolean(error !== "")}
+                    disabled={disabled}
+                >
+                    {addNew && (
+                        <MenuItem
+                            value=""
+                            onClick={() => addHandle(true)}
+                        >
+                            Add New
+                        </MenuItem>
+                    )}
+                    {
+                        (!items || !items?.length) ?
+                            <MenuItem disabled>{"No Options"}</MenuItem>
+                            :
+                            items?.map((_v, _i) => (
+                                <MenuItem
+                                    key={_i}
+                                    value={_v.value}
+                                >
+                                    {_v.label}
+                                </MenuItem>
+                            ))
+                    }
+                </Select>
+            </FormControl>
+            {printError()}
+        </Box>
     );
-};
+}
 
-export default SelectBox;

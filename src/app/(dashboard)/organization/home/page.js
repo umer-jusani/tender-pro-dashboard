@@ -2,11 +2,9 @@
 import { Map, ProductOne } from '@/assests';
 import SectionWrapper from '@/shared/common-layouts/section-wrapper/sectionWrapper';
 import { FLOW_SPACER } from '@/shared/constant/constant';
-import InputField from '@/shared/form-control/InputField';
 import SelectBox from '@/shared/form-control/select-box';
-import { Box, CardMedia, Grid2, Slider, Stack, Typography } from '@mui/material';
+import { Box, CardMedia, Grid2, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
-import { useState } from 'react';
 import ProductGrid, { UiCardContent } from './products/ProductGrid';
 
 const HomePage = () => {
@@ -16,12 +14,6 @@ const HomePage = () => {
       { value: "backend", label: "Backend Developer" },
       { value: "fullstack", label: "Fullstack Developer" },
     ];
-
-  const [value, setValue] = useState([20, 80]);
-
-  const handleChangeSlider = (event, newValue) => {
-    setValue(newValue);
-  };
 
   const products = [
     { id: 1, name: "Gold Ring With Clear Stones", quantity: 78, targetPrice: 500, image: ProductOne },
@@ -37,15 +29,48 @@ const HomePage = () => {
 
       {/* Soring */}
       <SectionWrapper>
-        <Stack data-role="header" spacing={1} py={1}>
-          <Typography variant="body1" >
+        <Stack data-role="header" spacing={2.5} py={2}>
+          <Typography variant="body1" fontWeight="medium">
             Sorted By:
           </Typography>
 
           <Stack spacing={2} direction={"row"} display={"flex"}>
-            <SelectBox label={"Size"} options={options} size='small' />
-            <SelectBox label={"Industry"} options={options} size='small' />
-            <SelectBox label={"Type"} options={options} size='small' />
+            <SelectBox
+              fullWidth
+              size="small"
+              name="Industry"
+              label="Industry"
+              // initValue={source}
+              // value={source}
+              // handleChange={(e) => setSource(e.target.value)}
+              items={[
+                { label: "All", value: "all" },
+                { label: "Outsource", value: "outSource" },
+                { label: "In-House", value: "inHouse" },
+              ]}
+            />
+            <SelectBox
+              fullWidth
+              size="small"
+              name="Size"
+              label="Size"
+              items={[
+                { label: "All", value: "all" },
+                { label: "Outsource", value: "outSource" },
+                { label: "In-House", value: "inHouse" },
+              ]}
+            />
+            <SelectBox
+              fullWidth
+              size="small"
+              name="Type"
+              label="Type"
+              items={[
+                { label: "All", value: "all" },
+                { label: "Outsource", value: "outSource" },
+                { label: "In-House", value: "inHouse" },
+              ]}
+            />
           </Stack>
         </Stack>
 
