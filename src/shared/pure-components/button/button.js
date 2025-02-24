@@ -12,7 +12,7 @@ const UIButton = ({
     isLoading = false,
     sans = false,
     size = "large",
-    width = "min-content",
+    width = null,
     startIcon = null,
     endIcon = null,
     rounded = false,
@@ -31,7 +31,7 @@ const UIButton = ({
             rounded={rounded}
             color={color}
             size={size}
-            sx={{ ...sx, textTransform: capitalize && "capitalize", bgcolor: btnColor }}
+            sx={{ ...sx, textTransform: capitalize && "capitalize", bgcolor: btnColor, width: width }}
             variant={variant}
             startIcon={
                 isLoading ? (
