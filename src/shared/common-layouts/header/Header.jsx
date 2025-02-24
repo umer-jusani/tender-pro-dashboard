@@ -1,30 +1,29 @@
 "use client";
 import { NotificationsIcon, SearchIcon } from "@/assests";
-import { DRAWER_BREAK_POINT } from "@/shared/constant/constant";
 import InputField from "@/shared/form-control/InputField";
-import { Box, Stack, useMediaQuery } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import Profile from "./Profile";
 import { AppBarStyled, ToolbarStyled } from "./ui";
 
 
 const Header = () => {
-  const matches = useMediaQuery(DRAWER_BREAK_POINT);
+  // const matches = useMediaQuery(DRAWER_BREAK_POINT);
 
   return (
     <>
       <AppBarStyled
         position="sticky"
-        sx={{ backgroundColor: "background.default" }}
+        sx={{ backgroundColor: "background.default", py: 1 }}
         elevation={1}
       >
         <ToolbarStyled sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <Stack maxWidth={440}>
             <InputField
+              label="Search Here...."
               fullWidth={false}
-              placeholder="Search Here..."
-              // bgColor="background.paper"
+              // placeholder="Search Here..."
               size="small"
-              endIcon={<SearchIcon sx={{ color: "text.primary" }} />}
+              icon={<SearchIcon sx={{ color: "text.primary" }} />}
             />
           </Stack>
           <Stack direction={"row"} alignItems={"center"} justifyContent={"center"}>

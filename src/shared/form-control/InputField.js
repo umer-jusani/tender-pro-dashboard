@@ -24,7 +24,7 @@ const InputField = React.forwardRef(
             fullWidth = true,
             value: propsValue,
             onChange: propsOnChange,
-            size,
+            size = "medium",
             variant = "outlined",
             min = "",
             max = "",
@@ -50,7 +50,7 @@ const InputField = React.forwardRef(
             label,
             variant,
             fullWidth,
-            size: "large",
+            size: size,
             autoComplete: "off",
             value: propsValue,
             onBlur,
@@ -79,7 +79,7 @@ const InputField = React.forwardRef(
                         render={({ field }) => <TextField {...commonTextFieldProps} {...field} InputLabelProps={{ sx: { color: "GrayText" } }} />}
                     />
                 ) : (
-                    <TextField {...commonTextFieldProps} color="primary" InputLabelProps={{ sx: { color: "GrayText" } }} />
+                    <TextField  {...commonTextFieldProps} color="primary" InputLabelProps={{ sx: { color: "GrayText" } }} />
                 )}
 
                 {helperText && (

@@ -58,27 +58,23 @@ const page = () => {
                             <InputField
                                 fullWidth={false}
                                 label="Account Holder Name"
-                                size="small"
                                 sx={{ width: "min(400px, 100%)" }}
                             />
                             <InputField
                                 fullWidth={false}
                                 placeholder="Search Here..."
-                                size="small"
                                 label="Account Number"
                                 sx={{ width: "min(400px, 100%)" }}
                             />
                             <InputField
                                 fullWidth={false}
                                 placeholder="Search Here..."
-                                size="small"
                                 label="CVC"
                                 sx={{ width: "min(400px, 100%)" }}
                             />
                             <InputField
                                 fullWidth={false}
                                 placeholder="Search Here..."
-                                size="small"
                                 label="CVC"
                                 sx={{ width: "min(400px, 100%)" }}
                             />
