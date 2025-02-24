@@ -15,5 +15,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import FileUploadIcon from '@mui/icons-material/FileUploadOutlined';
+import EditIcon from '@mui/icons-material/BorderColorOutlined';
+import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
-export { FileUploadIcon, SearchIcon, NotificationsIcon, SettingsIcon, LogoutIcon }
+export { EditIcon, FileUploadIcon, SearchIcon, NotificationsIcon, SettingsIcon, LogoutIcon, DeleteIcon }

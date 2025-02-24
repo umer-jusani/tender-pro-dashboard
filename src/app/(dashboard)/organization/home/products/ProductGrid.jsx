@@ -64,23 +64,13 @@ export const UiCardContent = ({ product, isButton = true }) => {
                 {product.name}
             </Typography>
             <Stack direction="row" justifyContent={"space-between"}>
-                <Stack spacing={0.3}>
-                    <Typography variant="body2" fontWeight={"bold"}>
-                        Quantity
-                    </Typography>
-                    <Typography variant="body2">
-                        <span> {product.quantity}</span>
-                    </Typography>
-                </Stack>
+                <Typography variant="body2" fontWeight={"bold"} width={"min-content"}>
+                    Quantity <Typography component={"span"} variant="body2">{product.quantity}</Typography>
+                </Typography>
                 <Divider sx={{ border: "1px solid rgba(191, 190, 232, 1)" }} />
-                <Stack spacing={0.3}>
-                    <Typography variant="body2" color="green" fontWeight={"bold"}>
-                        Target Price
-                    </Typography>
-                    <Typography variant="body2">
-                        ${product.targetPrice.toFixed(2)}
-                    </Typography>
-                </Stack>
+                <Typography variant="body2" color="green" fontWeight={"bold"} width={"min-content"}>
+                    Target_Price <Typography component={"span"} variant="body2" color="textPrimary">${product.targetPrice.toFixed(2)}</Typography>
+                </Typography>
             </Stack>
             <Typography variant="body2" color="rgba(0, 0, 0, 1)">
                 0d : 8h : 16m : 20s

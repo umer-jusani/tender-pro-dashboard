@@ -12,7 +12,7 @@ const SelectBox = ({ control, name = "age", label, size = "medium", labelId = "s
     };
 
     return (
-        <FormControl fullWidth>
+        <FormControl sx={{ maxWidth: "400px", minWidth: "200px" }}>
             <InputLabel id={labelId} sx={{ color: "text.primary" }}> {label}</InputLabel>
 
             {control ? (
@@ -34,8 +34,9 @@ const SelectBox = ({ control, name = "age", label, size = "medium", labelId = "s
                     labelId={labelId}
                     id={id}
                     fullWidth
+                    size={size}
                     label={label}
-                    sx={{ minWidth: minWidth }}
+                    sx={{ width: "100%" }}
                     value={value}
                     onChange={handleChange}
                 >

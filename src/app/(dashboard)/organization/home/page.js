@@ -37,50 +37,15 @@ const HomePage = () => {
 
       {/* Soring */}
       <SectionWrapper>
-        <Stack data-role="header">
-          <Typography variant="body1" fontWeight="bold">
+        <Stack data-role="header" spacing={1} py={1}>
+          <Typography variant="body1" >
             Sorted By:
           </Typography>
 
-          <Stack spacing={2} direction={"row"} display={"inline-flex"}>
-            <SelectBox label={"Industry"} options={options} />
-            <SelectBox label={"Size"} options={options} />
-            <SelectBox label={"Type"} options={options} />
-            <Box
-              sx={{
-                width: 300,
-                p: 2,
-                bgcolor: "background.paper",
-                borderRadius: 2,
-                boxShadow: 2,
-              }}
-            >
-              <Slider
-                value={value}
-                onChange={handleChangeSlider}
-                valueLabelDisplay="auto"
-                sx={{
-                  color: "dodgerblue",
-                }}
-              />
-              <Box display="flex" justifyContent="space-between" mt={1}>
-                <InputField
-                  label="Min"
-                  variant="outlined"
-                  size="small"
-                  value={value[0]}
-                  sx={{ width: 70 }}
-                />
-                <Typography variant="h6">—</Typography>
-                <InputField
-                  label="Max"
-                  variant="outlined"
-                  size="small"
-                  value={value[1]}
-                  sx={{ width: 70 }}
-                />
-              </Box>
-            </Box>
+          <Stack spacing={2} direction={"row"} display={"flex"}>
+            <SelectBox label={"Size"} options={options} size='small' />
+            <SelectBox label={"Industry"} options={options} size='small' />
+            <SelectBox label={"Type"} options={options} size='small' />
           </Stack>
         </Stack>
 
@@ -95,7 +60,7 @@ const HomePage = () => {
         <Grid2 item size={6} >
           <SectionWrapper>
             <Stack data-role="header">
-              <Typography variant='h5' fontWeight={"bold"}>My Tenders</Typography>
+              <Typography variant='h5' fontWeight={"bold"} >My Tenders</Typography>
             </Stack>
 
             <Box data-role="content">
