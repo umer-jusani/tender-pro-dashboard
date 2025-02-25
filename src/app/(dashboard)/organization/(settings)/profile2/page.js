@@ -1,15 +1,25 @@
 "use client";
-import SectionWrapper from '@/shared/common-layouts/section-wrapper/sectionWrapper'
-import { FLOW_SPACER } from '@/shared/constant/constant'
-import BackButton from '@/shared/pure-components/back-button/BackButton'
-import { Box, Grid2, LinearProgress, Stack, Typography } from '@mui/material';
+import SectionWrapper from '@/shared/common-layouts/section-wrapper/sectionWrapper';
+import { FLOW_SPACER } from '@/shared/constant/constant';
+import UIDatePicker from '@/shared/form-control/DatePicker';
 import InputField from '@/shared/form-control/InputField';
-import React from 'react'
-import { SearchIcon } from '@/assests';
 import SelectBox from '@/shared/form-control/select-box';
+import BackButton from '@/shared/pure-components/back-button/BackButton';
 import UIButton from '@/shared/pure-components/button/button';
+import { Box, LinearProgress, Stack, Typography } from '@mui/material';
+import dayjs from 'dayjs';
+import { useState } from 'react';
 
 const page = () => {
+    const [selectedDate, setSelectedDate] = useState(null);
+
+    const handleDatePicker = (date) => {
+        dayjs(date).startOf('d').toISOString()
+        const formattedDate = date ? dayjs(date).format('YYYY-MM-DD') : null;
+        setSelectedDate(date);
+        console.log(formattedDate, "formattedDate");
+    }
+
     return (
         <Stack spacing={FLOW_SPACER}>
             <BackButton />
@@ -72,11 +82,19 @@ const page = () => {
                                 label="CVC"
                                 sx={{ width: "min(400px, 100%)" }}
                             />
-                            <InputField
+                            {/* <InputField
                                 fullWidth={false}
                                 placeholder="Search Here..."
                                 label="CVC"
                                 sx={{ width: "min(400px, 100%)" }}
+                            /> */}
+                            <UIDatePicker
+                                name="date"
+                                // label="Select Date"
+                                value={selectedDate}
+                                onChange={handleDatePicker}
+                                sx={{ width: "min(400px, 100%)" }}
+                                errorMessage="" // Pass error messages if needed
                             />
                             <SelectBox
                                 name="Account Type"

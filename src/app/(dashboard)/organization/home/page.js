@@ -89,7 +89,7 @@ const HomePage = () => {
             </Stack>
 
             <Box data-role="content">
-              <Grid2 container spacing={5}>
+              <Grid2 container spacing={{ md: 5, sm: 3 }}>
                 {products.map((product) => (
                   <Grid2 item size={12} key={product.id}>
                     <Stack direction={"row"} spacing={2}>
@@ -104,7 +104,7 @@ const HomePage = () => {
         </Grid2>
 
         <Grid2 item size={6}>
-          <Image src={Map} style={{ width: "auto" }} alt="Map" objectFit="cover" />
+          <Image src={Map} style={{ width: "100%" }} alt="Map" objectFit="contain" />
         </Grid2>
       </Grid2>
 
