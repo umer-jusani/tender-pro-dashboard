@@ -46,7 +46,7 @@ export default function SelectBox({
                 <InputLabel
                     id={rand}
                     error={Boolean(error !== "")}
-                    sx={{ marginBottom: "5px", color: "" }}
+                    sx={{ marginBottom: "5px", color: "text.primary", fontWeight: "Medium" }}
                 >
                     {labelTop}
                 </InputLabel>

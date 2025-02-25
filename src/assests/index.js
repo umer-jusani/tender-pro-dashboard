@@ -14,10 +14,16 @@ export { TenderCar, NoTransactionFound, Map, userImage, Logo, ProductOne, Produc
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import SettingsIcon from '@mui/icons-material/Settings';
+import AddIcon from '@mui/icons-material/Add';
 import LogoutIcon from '@mui/icons-material/Logout';
 import FileUploadIcon from '@mui/icons-material/FileUploadOutlined';
 import EditIcon from '@mui/icons-material/BorderColorOutlined';
 import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import TransportIcon from '@mui/icons-material/LocalShipping';
+import CloseIcon from "@mui/icons-material/Close";
+import DollarIcon from '@mui/icons-material/AttachMoneyOutlined';
 
-export { EditIcon, FileUploadIcon, SearchIcon, NotificationsIcon, SettingsIcon, LogoutIcon, DeleteIcon, TransportIcon }
+export {
+     CloseIcon, EditIcon, FileUploadIcon, SearchIcon,
+     NotificationsIcon, SettingsIcon, LogoutIcon, DeleteIcon, TransportIcon, DollarIcon, AddIcon
+}

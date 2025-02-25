@@ -10,17 +10,12 @@ export const reducer = createSlice({
         cartCount: 0,
         toast: { message: "", open: false, type: "success" },
         filter: {},
-        openSignUpModal: true,
-        openSearchModel: false,
     },
 
     reducers: {
         setUser: (state, { payload }) => {
             state.isLogged = true;
             state.user = payload;
-        },
-        setToggleSearchModel: (state) => {
-            state.openSearchModel = !state.openSearchModel
         },
         setLogged: (state) => {
             state.isLogged = true;
@@ -37,9 +32,6 @@ export const reducer = createSlice({
         },
         setToast: (state, { payload }) => {
             state.toast = { ...payload, open: true };
-        },
-        setOpenSignUpModal: (state, { payload }) => {
-            state.openSignUpModal = payload;
         },
         closeToast: (state) => {
             state.toast = {
@@ -71,11 +63,9 @@ export const {
     toggleMenu,
     setTheme,
     closeToast,
-    setToggleSearchModel,
     setCartCount,
     closeMenu,
     setFilter,
-    setOpenSignUpModal,
 } = reducer.actions;
 
 

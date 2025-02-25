@@ -1,168 +1,121 @@
-import { DeleteIcon, EditIcon, TenderCar, TransportIcon } from '@/assests'
+"use client";
+import { AddIcon, FileUploadIcon, SearchIcon } from '@/assests'
 import SectionWrapper from '@/shared/common-layouts/section-wrapper/sectionWrapper'
 import { FLOW_SPACER } from '@/shared/constant/constant'
+import InputField from '@/shared/form-control/InputField';
 import UIButton from '@/shared/pure-components/button/button'
-import { Stack, Typography } from '@mui/material'
-import Image from 'next/image'
+import TableContainer from '@/shared/pure-components/table/TableContainer';
+import { Stack, TableCell, TableRow, Typography } from '@mui/material'
+import { Fragment, useState } from 'react'
 
-const DisclaimerBulletPoints = ["The information provided in this tender document is for the sole purpose of enabling interested parties to submit a bid",
-    "TenderWord does not guarantee the accuracy or completeness of the information and reserves the right to amend, update, or withdraw this document at any time without prior notice."];
+const transactionsThLabels = ["#ID", "Title", "Status", "Date", "Responses"];
+// Sample data for designing the page
+const sampleTransactions = [
+    { id: 1, firstName: "John", lastName: "Doe", email: "john@example.com", phoneNumber: "123-456-7890", status: "Paid", date: "2025-02-23", amount: "80" },
+    { id: 2, firstName: "Jane", lastName: "Smith", email: "jane@example.com", phoneNumber: "987-654-3210", status: "Unpaid", date: "2025-02-22", amount: "90" },
+    { id: 3, firstName: "Alice", lastName: "Johnson", email: "alice@example.com", phoneNumber: "555-666-7777", status: "Paid", date: "2025-02-21", amount: "80" },
+    { id: 4, firstName: "Michael", lastName: "Brown", email: "michael@example.com", phoneNumber: "111-222-3333", status: "Paid", date: "2025-02-20", amount: "90" },
+    { id: 5, firstName: "Emily", lastName: "Davis", email: "emily@example.com", phoneNumber: "444-555-6666", status: "Paid", date: "2025-02-19", amount: "80" },
+    { id: 6, firstName: "Robert", lastName: "Miller", email: "robert@example.com", phoneNumber: "777-888-9999", status: "Unpaid", date: "2025-02-18", amount: "90" },
+    { id: 7, firstName: "Olivia", lastName: "Wilson", email: "olivia@example.com", phoneNumber: "222-333-4444", status: "Paid", date: "2025-02-17", amount: "80" },
+    { id: 8, firstName: "David", lastName: "Martinez", email: "david@example.com", phoneNumber: "666-777-8888", status: "Paid", date: "2025-02-16", amount: "90" },
+    { id: 9, firstName: "Sophia", lastName: "Anderson", email: "sophia@example.com", phoneNumber: "999-000-1111", status: "Unpaid", date: "2025-02-15", amount: "80" },
+    { id: 10, firstName: "Daniel", lastName: "Thomas", email: "daniel@example.com", phoneNumber: "555-444-3333", status: "Paid", date: "2025-02-14", amount: "90" }
+];
 
-const TOSBulletPoints = ["Bids must comply with the terms and conditions specified in the tender document.",
-    "TenderWord shall not be held liable for any costs incurred by bidders during the preparation or submission of their proposals."]
-
-const COSBulletPoints = ["All items or services offered under this tender are sold on an ”as-is” basis. No warranties, either expressed or implied, are provided regarding the quality, condition, or suitability for a specific purpose."];
-
-const ConfidentiallyBulletPoints = ["All information contained within this tender document must be treated as confidential and should not be disclosed to third parties without written consent."];
-
-const LAWBulletPoints = ["This tender shall be governed by and interpreted in accordance with (the laws of the state of Delaware)."]
+const TendersPage = () => {
+    const [transactions, setTransactions] = useState(sampleTransactions);
 
 
-const MyTenders = () => {
+    const renderRow = (item, index) => {
+        return (
+            <TableRow key={index}>
+                <TableCell size='small'>
+                    <Typography>
+                        {item?.firstName || "-"} {item?.lastName || "-"}
+                    </Typography>
+                </TableCell>
+                <TableCell size='small'>
+                    <Typography>
+                        {item?.email || "-"}
+                    </Typography>
+                </TableCell>
+                <TableCell size='small'>
+                    <UIButton variant='text' color={item.status == "Paid" ? "success" : "error"}>
+                        {item.status}
+                    </UIButton>
+                </TableCell>
+                <TableCell size='small' sx={{ cursor: "pointer" }}>
+                    <Typography>
+                        {item.date}
+                    </Typography>
+                </TableCell>
+                <TableCell size='small'>
+                    <Typography>
+                        {item.amount}
+                    </Typography>
+                </TableCell>
+            </TableRow>
+        );
+    };
+
+
     return (
         <Stack spacing={FLOW_SPACER}>
             {/* Heading */}
-            <Typography variant='h4' fontWeight={"bold"}>Tenders</Typography>
+            <Typography variant='h4' fontWeight={"bold"}>My Tenders</Typography>
 
             <SectionWrapper>
-                {/* header */}
-                <Stack data-role="header" direction={"row"} alignItems={"center"} justifyContent="space-between" flex={1}>
-                    <Typography variant='h5' fontWeight={"bold"}>Hyundai Sonata</Typography>
-                    <Stack direction="row" spacing={2}>
-                        <UIButton variant='outlined' color="" startIcon={<EditIcon />}>Edit</UIButton>
-                        <UIButton variant='outlined' color='error' startIcon={<DeleteIcon />}>Delete</UIButton>
+                <Stack data-role="header" width={"100%"} direction={"row"} justifyContent={"space-between"}>
+                    <Stack direction={"row"} spacing={2}>
+                        <UIButton size='small'>
+                            All
+                        </UIButton>
+                        <UIButton size='small' variant='outlined' color='text'>
+                            Active
+                        </UIButton>
+                        <UIButton size='small' variant='outlined' color='text'>
+                            Closed
+                        </UIButton>
+                        <InputField
+                            label="Search here..."
+                            size="small"
+                            icon={<SearchIcon />}
+                        />
                     </Stack>
+                    <UIButton startIcon={<AddIcon />}>
+                        New Tender
+                    </UIButton>
                 </Stack>
 
-                <Stack data-role="content" spacing={6}>
-                    {/* first child */}
+                {/* py={6} mx={"auto"} width={"fit-content"} textAlign={"center"} spacing={3} */}
+                <Stack data-role="content" >
+                    {/* <Image src={NoTransactionFound} />
+                    <Typography variant='body1' color='textDisabled' fontWeight={"bold"}>No Transaction Found.</Typography> */}
 
+                    <TableContainer sx={{ whiteSpace: "noWrap" }}
+                        thContent={transactionsThLabels.map((value, i) => (
+                            <TableCell key={i}>
+                                <Typography variant='h6' color='text.primary' fontWeight={"bold"}>{value}</Typography>
+                            </TableCell>
+                        ))}
+                        spanTd={transactionsThLabels.length}
+                        page={1}
+                        totalPages={2}
+                        // callBack={setPage}
+                        isLoading={false}
+                        isContent={transactions?.length}
+                    >
+                        {transactions?.map((item, i) => {
+                            return <Fragment key={i}>{renderRow(item, i)}</Fragment>;
+                        })}
+                    </TableContainer>
 
-
-
-
-
-
-                    {/* <Grid2 container spacing={6}>
-                        <Grid2 item size={7} border={"2px solid black"}>
-                            <Stack spacing={4}>
-                                <Stack spacing={0.5}>
-                                    <Typography variant='h2' fontWeight={"bold"}>2018 Hyundai Sonata</Typography>
-                                    <Typography variant='subtitle2' color='textDisabled'>Listing ID: 14076242 Item #: 7300-3356862</Typography>
-                                </Stack>
-
-                                <Stack bgcolor={"background.lightPurple"} px={2} py={4} borderRadius={"5px"} spacing={2} gridRow={"auto"}>
-                                    <Typography variant='subtitle1' fontWeight={"bold"} sx={{ display: "flex", justifyContent: "space-between" }}>
-                                        Current Price
-                                        <Typography variant='h5' sx={{ fontWeight: "medium" }} color='success'>US $700.00</Typography>
-                                    </Typography>
-
-                                    <Stack spacing={0.8}>
-                                        <Typography sx={{ display: "flex", justifyContent: "space-between" }} color='textDisabled'>
-                                            Buyer's Premium
-                                            <Typography color='textPrimary' fontWeight={"medium"}>$10.00%</Typography>
-                                        </Typography>
-
-                                        <Typography color='textDisabled' sx={{ display: "flex", justifyContent: "space-between" }}>
-                                            Bid Increment (US)
-                                            <Typography color='textPrimary' fontWeight={"medium"}>$50.00</Typography>
-                                        </Typography>
-                                    </Stack>
-                                </Stack>
-                            </Stack>
-                        </Grid2>
-
-                        <Grid2 item size={5} bgcolor={"primary.light"} sx={{ boxShadow: 3, borderRadius: 2 }}>
-                            <Image src={TenderCar} layout='responsive' />
-                        </Grid2>
-                    </Grid2> */}
-
-
-
-                    <Stack direction="row" spacing={6}>
-                        {/* Left Section (7 parts) */}
-                        <Stack flex={6} spacing={4}>
-                            <Stack spacing={0.5}>
-                                <Typography variant='h2' fontWeight={"bold"}>2018 Hyundai Sonata</Typography>
-                                <Typography variant='subtitle2' color='textDisabled'>
-                                    Listing ID: 14076242 Item #: 7300-3356862
-                                </Typography>
-                            </Stack>
-
-                            <Stack justifyContent={"center"} bgcolor={"background.lightPurple"} px={2} py={4} borderRadius={"5px"} spacing={2} flex={1}>
-                                <Typography
-                                    variant='subtitle1'
-                                    fontWeight={"bold"}
-                                    sx={{ display: "flex", justifyContent: "space-between" }}
-                                >
-                                    Current Price
-                                    <Typography variant='h5' sx={{ fontWeight: "medium" }} color='success'>US $700.00</Typography>
-                                </Typography>
-
-                                <Stack spacing={0.8}>
-                                    <Typography sx={{ display: "flex", justifyContent: "space-between" }} color='textDisabled'>
-                                        Buyer's Premium
-                                        <Typography color='textPrimary' fontWeight={"medium"}>$10.00%</Typography>
-                                    </Typography>
-
-                                    <Typography color='textDisabled' sx={{ display: "flex", justifyContent: "space-between" }}>
-                                        Bid Increment (US)
-                                        <Typography color='textPrimary' fontWeight={"medium"}>$50.00</Typography>
-                                    </Typography>
-                                </Stack>
-                            </Stack>
-                        </Stack>
-
-                        {/* Right Section (5 parts) */}
-                        <Stack flex={5} bgcolor={"primary.light"} sx={{ boxShadow: 3, borderRadius: 2 }}>
-                            <Image src={TenderCar} layout='responsive' />
-                        </Stack>
-                    </Stack>
-
-
-
-
-
-
-
-
-
-
-
-                    {/* Second child */}
-                    <Stack spacing={1.5}>
-                        <Typography variant='h5' fontWeight={"bold"}>Transport</Typography>
-                        <UIButton startIcon={<TransportIcon />} width={"fit-content"}>Transporter</UIButton>
-                    </Stack>
-
-                    {/* Third Child */}
-                    <Stack spacing={3}>
-                        <TenderInfoSection title={"Disclaimer"} bulletPoints={DisclaimerBulletPoints} />
-                        <TenderInfoSection title={"Terms of Submission"} bulletPoints={TOSBulletPoints} />
-                        <TenderInfoSection title={"Conditions of Sale"} bulletPoints={COSBulletPoints} />
-                        <TenderInfoSection title={"Confidentiality"} bulletPoints={ConfidentiallyBulletPoints} />
-                        <TenderInfoSection title={"Governing Law"} bulletPoints={LAWBulletPoints} />
-                    </Stack>
                 </Stack>
+
             </SectionWrapper>
-        </Stack>
+        </Stack >
     )
 }
 
-export default MyTenders;
-
-
-const TenderInfoSection = ({ title, bulletPoints = [] }) => {
-    return (
-        <Stack spacing={1.5}>
-            <Typography variant='h5' fontWeight={"bold"}>{title}</Typography>
-            <Stack>
-                {bulletPoints?.map(ele => (
-                    <Typography>&bull; {ele}</Typography>
-                ))}
-            </Stack>
-        </Stack>
-    )
-}
-
-
+export default TendersPage

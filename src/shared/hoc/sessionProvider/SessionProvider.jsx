@@ -1,8 +1,11 @@
+import { UIProvider } from '@/shared/centralizeManagement/UIManager'
 import React from 'react'
 
 const SessionProvider = ({ children }) => {
     return (
-        { children }
+        <UIProvider>
+            {children}
+        </UIProvider>
     )
 }
 

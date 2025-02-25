@@ -3,17 +3,15 @@ import { Map, ProductOne } from '@/assests';
 import SectionWrapper from '@/shared/common-layouts/section-wrapper/sectionWrapper';
 import { FLOW_SPACER } from '@/shared/constant/constant';
 import SelectBox from '@/shared/form-control/select-box';
-import { Box, CardMedia, Grid2, Stack, Typography } from '@mui/material';
+import ModalWrapper from '@/shared/pure-components/ModalWrapper/ModalWrapper';
+import { Avatar, Box, CardMedia, Grid2, Rating, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import ProductGrid, { UiCardContent } from './products/ProductGrid';
+import { useState } from 'react';
 
 const HomePage = () => {
-  const options =
-    [
-      { value: "frontend", label: "Frontend Developer" },
-      { value: "backend", label: "Backend Developer" },
-      { value: "fullstack", label: "Fullstack Developer" },
-    ];
+  const [openModal, setOpenModal] = useState(false);
+
 
   const products = [
     { id: 1, name: "Gold Ring With Clear Stones", quantity: 78, targetPrice: 500, image: ProductOne },
@@ -21,6 +19,13 @@ const HomePage = () => {
     { id: 3, name: "Gold Ring With Clear Stones", quantity: 78, targetPrice: 500, image: ProductOne },
   ];
 
+  const companyInformation = [
+    { title: "Bussiness Type", value: "Software Development" },
+    { title: "Location", value: "New York" },
+    { title: "Since", value: "1998" },
+    { title: "Phone", value: "+00 000 000 000" },
+    { title: "Email Address", value: "abc@gmail.com" },
+  ];
 
   return (
     <Stack spacing={FLOW_SPACER}>
@@ -104,12 +109,99 @@ const HomePage = () => {
         </Grid2>
 
         <Grid2 item size={6}>
-          <Image src={Map} style={{ width: "100%" }} alt="Map" objectFit="contain" />
+          <Image src={Map} style={{ width: "100%" }} alt="Map" objectFit="contain" onClick={()=> setOpenModal(true)}/>
         </Grid2>
       </Grid2>
+
+      {/* Modal */}
+      <ModalWrapper open={openModal} showImageUploader={false} size='md' onClose={() => setOpenModal(false)}>
+        <Box px={2}>
+          <Stack direction="row" spacing={1} alignItems="center" mb={5}>
+            <Avatar
+              alt="John Smith"
+              src="https://via.placeholder.com/150"
+              sx={{ width: 50, height: 50 }}
+            />
+            <Stack>
+              <Typography variant="h6" fontWeight="bold">
+                Company Name
+              </Typography>
+              <Typography variant="caption">
+                comapny@gmail.com
+              </Typography>
+            </Stack>
+          </Stack>
+
+          {/* Second Child */}
+          <Stack direction="row" justifyContent="space-between">
+            {/* Company Information */}
+            <Stack spacing={2}>
+              <Typography variant='h6'>Company Information</Typography>
+              <Stack spacing={0.6}>
+                {companyInformation.map(ele => (
+                  <CompanyInfo data={ele} />
+                ))}
+              </Stack>
+            </Stack>
+
+            {/* Reviews */}
+            <Stack spacing={2}>
+              <Typography variant='h6'>Reviews</Typography>
+              <Stack spacing={1} sx={{ width: "max(500px, 500px)" }}>
+                {Array(2).fill(null).map(ele => (
+                  <ReviewCard />
+                ))}
+              </Stack>
+            </Stack>
+
+          </Stack>
+
+        </Box>
+      </ModalWrapper>
 
     </Stack>
   )
 }
 
-export default HomePage   
+export default HomePage;
+
+const ReviewCard = () => {
+  return (
+    <Stack sx={{ width: "100%", padding: 2, borderRadius: 3, boxShadow: 2, flex: 1 }} spacing={2}>
+      <Stack direction="row" spacing={2} alignItems="center" justifyContent={"space-between"}>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Avatar src="https://via.placeholder.com/50" alt="User Avatar" />
+          <Stack>
+            <Typography variant="subtitle1" fontWeight="bold">
+              Rohan
+            </Typography>
+            <Rating value={3.5} sx={{ color: "primary.main" }} precision={0.5} readOnly size="small" />
+          </Stack>
+        </Stack>
+        <Typography variant="body2" sx={{ marginLeft: "auto" }}>
+          Oct 29, 2023
+        </Typography>
+      </Stack>
+
+      <Stack>
+        <Typography variant="body1" sx={{ marginTop: 1 }}>
+          Amazing Products.
+        </Typography>
+        <Typography variant="body2">
+          Very nice and great products.
+        </Typography>
+      </Stack>
+    </Stack>
+  )
+};
+
+const CompanyInfo = ({ data }) => {
+  const { title, value } = data;
+
+  return (
+    <Stack>
+      <Typography variant='subtitle1' fontWeight={"medium"}>{title}</Typography>
+      <Typography variant='body2'>{value}</Typography>
+    </Stack>
+  )
+}

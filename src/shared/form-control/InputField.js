@@ -28,6 +28,7 @@ const InputField = React.forwardRef(
             variant = "outlined",
             min = "",
             max = "",
+            type = "",
             onBlur,
             control = null, // react-hook-form control
             name = "fallback",
@@ -48,6 +49,7 @@ const InputField = React.forwardRef(
             inputRef: ref,
             error: isError,
             label,
+            type,
             variant,
             fullWidth,
             size: size,
@@ -67,7 +69,7 @@ const InputField = React.forwardRef(
         return (
             <FormControl sx={{ ...styles, width: 1 }} error={isError}>
                 {labelTop && (
-                    <Typography sx={{ marginBottom: "5px", color: "#000", fontWeight: "Medium" }} >
+                    <Typography sx={{ marginBottom: "5px", color: "text.primary", fontWeight: "Medium" }} >
                         {labelTop}
                     </Typography>
                 )}
@@ -79,7 +81,7 @@ const InputField = React.forwardRef(
                         render={({ field }) => <TextField {...commonTextFieldProps} {...field} InputLabelProps={{ sx: { color: "GrayText" } }} />}
                     />
                 ) : (
-                    <TextField  {...commonTextFieldProps} color="primary" InputLabelProps={{ sx: { color: "GrayText" } }} />
+                    <TextField {...commonTextFieldProps} color="primary" InputLabelProps={{ sx: { color: "GrayText" } }} />
                 )}
 
                 {helperText && (
